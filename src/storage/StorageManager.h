@@ -13,7 +13,7 @@ class StorageManager {
     StorageManager();
     // Wifi Methods
     void setWifiCredentials(String ssid, String password);
-    void getWifiCredentials(String &ssid, String &password);
+    void getWifiCredentials(String ssid, String password);
     void resetWifiCredentials();
 
     void teste();

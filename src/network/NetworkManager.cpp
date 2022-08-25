@@ -1,6 +1,7 @@
-#include "NetworkManager.hpp"
+#include "NetworkManager.h"
+#define SERVER_PORT 80
 
-NetworkManager::NetworkManager(String ssid, String password, String softAPSSID) {
+NetworkManager::NetworkManager(String ssid, String password, String softAPSSID) : server(SERVER_PORT) {
     this->ssid = ssid;
     this->password = password;
     this->softAPSSID = softAPSSID;
@@ -10,7 +11,7 @@ NetworkManager::NetworkManager(String ssid, String password, String softAPSSID) 
         this->provide();
         this->registerSTARoutes();
     }
-}
+};
 
 // AP Methods
 
@@ -37,7 +38,7 @@ bool NetworkManager::connect() {
 
 // STA Methodss
 
-NetWorkManager::provide() {
+void NetworkManager::provide() {
     WiFi.mode(WIFI_AP);
     WiFi.softAP(this->ssid.c_str(), this->password.c_str());
 
@@ -49,7 +50,7 @@ NetWorkManager::provide() {
     const byte DNS_PORT = 53;
     IPAddress apIP(192, 168, 1, 1);
     WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-    WiFi.softAP(this->softAPSSID, NULL);
+    WiFi.softAP(this->softAPSSID.c_str(), NULL);
     WiFi.disconnect(true, true);
     this->dnsServer.start(DNS_PORT, "*", apIP);
 }
@@ -57,7 +58,7 @@ NetWorkManager::provide() {
 int networksInRange;
 long lastNetworkScan = millis();
 
-NetworkManager::registerSTARoutes() {
+void NetworkManager::registerSTARoutes() {
     this->server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
         request->send(SPIFFS, "/index.html", "text/plain");
     });
@@ -73,7 +74,7 @@ NetworkManager::registerSTARoutes() {
     this->server.begin();
 }
 
-NetworkManager::refreshNetworkList() {
+void NetworkManager::refreshNetworkList() {
     Serial.println("[INFO] Scanning for networks...");
     networksInRange = WiFi.scanNetworks();
     Serial.println("[INFO] Found " + String(networksInRange) + " networks");

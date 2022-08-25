@@ -13,9 +13,10 @@ void setup() {
 
     String wifi_ssid = "";
     String wifi_password = "";
+    String softAPSSID = "Pet Tracker Configuração";
 
     // Load wifi credentials
-    storage.getWifiCredentials(&wifi_ssid, &wifi_password);
+    storage.getWifiCredentials(wifi_ssid, wifi_password);
 }
 
 void loop() {

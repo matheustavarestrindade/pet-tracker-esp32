@@ -1,12 +1,6 @@
 #include "StorageManager.h"
 
-StorageManager::StorageManager() {
-    // Initialize SPIFFS
-    if (!SPIFFS.begin(true)) {
-        Serial.println("[ERROR] An Error has occurred while mounting SPIFFS");
-        return;
-    }
-};
+StorageManager::StorageManager(){};
 
 /*
     Wifi credentials are stored in the following format:
@@ -23,7 +17,7 @@ void StorageManager::setWifiCredentials(String ssid, String password) {
 }
 
 // Get wifi credentials
-void StorageManager::getWifiCredentials(String &ssid, String &password) {
+void StorageManager::getWifiCredentials(String ssid, String password) {
     this->wifi_preferences.begin("wifi", false);
     this->wifi_ssid = this->wifi_preferences.getString("wifi_ssid", "");
     this->wifi_password = this->wifi_preferences.getString("wifi_password", "");

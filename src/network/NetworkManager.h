@@ -1,8 +1,8 @@
 #include <DNSServer.h>
 
+#include "ESPAsyncWebServer.h"
 #include "SPIFFS.h"
 #include "WiFi.h"
-#define SERVER_PORT 80
 
 class NetworkManager {
    private:
@@ -11,7 +11,7 @@ class NetworkManager {
     String password;
     String softAPSSID;
     DNSServer dnsServer;
-    AsyncWebServer server(SERVER_PORT);
+    AsyncWebServer server;
 
     // AP Methods
     bool connect();
@@ -23,4 +23,4 @@ class NetworkManager {
    public:
     NetworkManager(String ssid, String password, String softAPSSID);
     void doNetworkLoop();
-}
+};
