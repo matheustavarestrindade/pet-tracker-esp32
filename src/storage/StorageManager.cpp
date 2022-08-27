@@ -1,5 +1,7 @@
 #include "StorageManager.h"
 
+#include "Instances.h"
+
 StorageManager::StorageManager(){};
 
 /*
@@ -21,8 +23,10 @@ void StorageManager::getWifiCredentials(String ssid, String password) {
     this->wifi_preferences.begin("wifi", false);
     this->wifi_ssid = this->wifi_preferences.getString("wifi_ssid", "");
     this->wifi_password = this->wifi_preferences.getString("wifi_password", "");
-    ssid = this->wifi_ssid;
-    password = this->wifi_password;
+    if (this->wifi_ssid)
+        ssid = this->wifi_ssid;
+    if (this->wifi_password)
+        password = this->wifi_password;
     this->wifi_preferences.end();
 }
 

@@ -2,6 +2,8 @@
 
 #include "Preferences.h"
 
+#ifndef STORAGE_MANAGER_H
+#define STORAGE_MANAGER_H
 class StorageManager {
    private:
     // Wifi credentials
@@ -18,3 +20,5 @@ class StorageManager {
 
     void teste();
 };
+
+#endif  // STORAGE_MANAGER_H
